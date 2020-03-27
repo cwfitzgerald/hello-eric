@@ -1,5 +1,4 @@
 use std::time::Duration;
-use std::io::Write;
 use std::fmt::Display;
 use tokio::prelude::*;
 use tokio::task::JoinHandle;
@@ -47,6 +46,6 @@ async fn main() -> io::Result<()> {
     print("Ah here it is").await?;
     raw_print(text).await?;
 
-    print("Alright, we've had our fun");
+    print("Alright, we've had our fun").await?;
     print("Goodbye!").await
 }
