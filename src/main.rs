@@ -79,13 +79,12 @@ async fn main() -> io::Result<()> {
     raw_print(text).await?;
 
     print("Alright, we've had our fun").await?;
-    print("Goodbye!").await?;
 
     let mut state = State::Input;
     loop {
         match state {
             State::Input => {
-                print_no_tick("Are you sure? [y/n] ").await?;
+                print_no_tick("Goodbye? [y/n] ").await?;
                 let input = read_characters().await?.to_lowercase();
                 if input.contains('y') {
                     state = State::Quitting;
