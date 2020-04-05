@@ -1,7 +1,6 @@
 use std::fmt::Display;
 use std::time::Duration;
 use tokio::prelude::*;
-use tokio::task::JoinHandle;
 use tokio::time::delay_for;
 
 async fn raw_print(input: impl Display) -> io::Result<()> {
@@ -67,16 +66,7 @@ async fn main() -> io::Result<()> {
         "Now as one final test, I'm going to get the source code of your website, asynchronously",
     )
     .await?;
-    print("Again just for the hell of it :)").await?;
-
-    let get_fut = tokio::spawn(reqwest::get("http://www.cs.hunter.cuny.edu/~eschweit/"));
-    print("Accessing http://www.cs.hunter.cuny.edu/~eschweit/").await?;
-    let response = get_fut.await.unwrap().unwrap();
-    let text_fut: JoinHandle<reqwest::Result<String>> = tokio::spawn(response.text());
-    print("Getting body").await?;
-    let text = text_fut.await.unwrap().unwrap();
-    print("Ah here it is").await?;
-    raw_print(text).await?;
+    print("Syke... this requires libssl and cause it not to run for you ;)").await?;
 
     print("Alright, we've had our fun").await?;
 
@@ -84,7 +74,7 @@ async fn main() -> io::Result<()> {
     loop {
         match state {
             State::Input => {
-                print_no_tick("Goodbye? [y/n] ").await?;
+                print_no_tick("Leave? [y/n] ").await?;
                 let input = read_characters().await?.to_lowercase();
                 if input.contains('y') {
                     state = State::Quitting;
